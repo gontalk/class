@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulary Practice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .word-box {
+            margin: 20px 0;
+        }
+
+        .images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 5px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .audio-icon {
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vocabulary Practice</h1>
+        <p>Type the correct word for each image and press "Check" to see your results.</p>
+
+        <div class="word-box">
+            <button id="checkButton">Check</button>
+            <div class="result" id="result"></div>
+        </div>
+
+        <div class="images" id="imagesContainer">
+            <div class="image-container" data-answer="jeans">
+                <img src="https://59121.cdn.simplo7.net/static/59121/sku/feminino-calcas-calca-jeans-feminina-azul-claro-push-up-f2855-p-1699634100458.jpg" alt="Jeans">
+                <img src="https://via.placeholder.com/30?text=🔊" alt="Audio Icon" class="audio-icon" onclick="playAudio('jeans-audio')">
+                <audio id="jeans-audio" src="https://dictionary.cambridge.org//media/english-portuguese/us_pron_ogg/j/jea/jeans/jeans.ogg"></audio>
+                <input type="text" placeholder="Type here">
+            </div>
+            <div class="image-container" data-answer="hat">
+                <img src="https://io.convertiez.com.br/m/feiradamadrugada/shop/products/images/418583151/medium/calca-jeans-wide-leg-feminina-pantalona-destroyed-cintura-alta-azul-escuro_183905.jpg" alt="Hat">
+                <img src="https://via.placeholder.com/30?text=🔊" alt="Audio Icon" class="audio-icon" onclick="playAudio('hat-audio')">
+                <audio id="hat-audio" src="audio/hat.mp3"></audio>
+                <input type="text" placeholder="Type here">
+            </div>
+            <div class="image-container" data-answer="shirt">
+                <img src="https://cdn.awsli.com.br/2455/2455380/produto/170301655/img_5841-ildmoj.jpg" alt="Shirt">
+                <img src="https://via.placeholder.com/30?text=🔊" alt="Audio Icon" class="audio-icon" onclick="playAudio('shirt-audio')">
+                <audio id="shirt-audio" src="audio/shirt.mp3"></audio>
+                <input type="text" placeholder="Type here">
+            </div>
+            <!-- Add more image-container blocks as needed -->
+        </div>
+    </div>
+
+    <script>
+        function playAudio(audioId) {
+            const audio = document.getElementById(audioId);
+            audio.play();
+        }
+
+        document.getElementById("checkButton").addEventListener("click", function () {
+            const images = document.querySelectorAll(".image-container");
+            let correct = 0;
+            let total = images.length;
+
+            images.forEach(image => {
+                const input = image.querySelector("input");
+                const answer = image.getAttribute("data-answer");
+                if (input.value.trim().toLowerCase() === answer.toLowerCase()) {
+                    correct++;
+                    input.style.borderColor = "green";
+                } else {
+                    input.style.borderColor = "red";
+                }
+            });
+
+            const result = document.getElementById("result");
+            result.textContent = `You got ${correct} out of ${total} correct.`;
+        });
+    </script>
+</body>
+</html>
